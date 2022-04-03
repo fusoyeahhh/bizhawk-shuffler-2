@@ -321,6 +321,21 @@ end
 
 function swap_game_delay(f)
 	next_swap_time = config.frame_count + f
+
+    -- Reduce next swap time by sub count in seconds
+    sub_count_file = io.open("subcount", "r")
+    sub_count = sub_count_file:read("*all")
+    sub_count_file:close()
+    print("Current sub count: " + sub_count)
+    sub_count = tonumber(sub_count_file)
+    if sub_count == nil then
+        sub_count = 0
+    end
+    -- express in frames
+    sub_count = sub_count * 60
+    -- minimum swap time in frames (five seconds)
+    _MIN_SWAP_TIME = 5 * 60
+    next_swap_time = math.max(next_swap_time - sub_count, config.frame_count + _MIN_SWAP_TIME)
 end
 
 function update_next_swap_time()
