@@ -327,7 +327,7 @@ function swap_game_delay(f)
     sub_count = sub_count_file:read("*all")
     sub_count_file:close()
     print("Current sub count: " + sub_count)
-    sub_count = tonumber(sub_count_file)
+    sub_count = tonumber(sub_count)
     if sub_count == nil then
         sub_count = 0
     end
